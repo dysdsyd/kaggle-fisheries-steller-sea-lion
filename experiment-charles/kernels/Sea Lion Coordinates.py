@@ -267,8 +267,8 @@ class SeaLionData(object):
             counts = [0,0,0,0,0]
             for c in sealions :
                 counts[c.cls] +=1
-            print()
-            print('train_id','true_counts','counted_dots', 'difference', sep='\t')   
+            #print()
+            #print('train_id','true_counts','counted_dots', 'difference', sep='\t')   
             true_counts = self.counts[train_id]
             print(train_id, true_counts, counts, np.array(true_counts) - np.array(counts) , sep='\t' )
           
@@ -345,7 +345,8 @@ class SeaLionData(object):
     def _progress(self, string=None, end=' ', verbosity=VERBOSITY.NORMAL):
         if self.verbosity < verbosity: return
         if not string :
-            print('.', end='')
+            #print('.', end='')
+            pass
         elif string == 'done':
             print(' done') 
         else:

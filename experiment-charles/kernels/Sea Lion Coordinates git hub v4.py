@@ -634,8 +634,8 @@ class SeaLionData(object):
             counts = [0, 0, 0, 0, 0]
             for c in sealions:
                 counts[c.cls] += 1
-            print()
-            print('train_id', 'true_counts', 'counted_dots', 'difference', sep='\t')
+            #print()
+            #print('train_id', 'true_counts', 'counted_dots', 'difference', sep='\t')
             true_counts = self.tid_counts[train_id]
             print(train_id, true_counts, counts, np.array(true_counts) - np.array(counts), sep='\t')
 
@@ -734,7 +734,8 @@ class SeaLionData(object):
         if self.verbosity < verbosity:
             return
         if not string:
-            print('.', end='')
+            #print('.', end='')
+            pass
         elif string == 'done':
             print(' done')
         else:
@@ -879,7 +880,7 @@ if __name__ == "__main__":
     
     sld.save_coords()
 
-    
+    print("v4")
     
     
     
