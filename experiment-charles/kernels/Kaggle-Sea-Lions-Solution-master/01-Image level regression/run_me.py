@@ -19,20 +19,20 @@ import os
 import matplotlib.pyplot as plt
 
 n_classes= 5
-batch_size= 16
+batch_size= 4
 epochs= 100
 image_size= 512
-model_name= 'cnn_regression'
+model_name= 'cnn_regression_moi'
 
 def read_ignore_list():
-    df_ignore= pd.read_csv('kaggle_data/mismatched_train_images.txt')
+    df_ignore= pd.read_csv('C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/MismatchedTrainImages.txt')
     ignore_list= df_ignore['train_id'].tolist()
     
     return ignore_list
     
 #Just remove images from mismatched_train_images.txt
 def load_data(dir_path):
-    df= pd.read_csv('kaggle_data/train.csv')
+    df= pd.read_csv('C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/counts/train.csv')
     
     ignore_list= read_ignore_list()
     n_train_images= 948
@@ -42,9 +42,9 @@ def load_data(dir_path):
     for i in range(0,n_train_images):
         if i not in ignore_list:
             image_path= os.path.join(dir_path, str(i)+'.png')
-            print image_path
+            print(image_path)
             img= cv2.imread(image_path)
-            print 'img.shape',img.shape
+            print('i4mg.shape',img.shape)
             image_list.append(img)
            
             row= df.ix[i] 
@@ -59,8 +59,8 @@ def load_data(dir_path):
     x_train= np.asarray(image_list)
     y_train= np.asarray(y_list)
     
-    print 'x_train.shape', x_train.shape
-    print 'y_train.shape', y_train.shape
+    print('x_train.shape', x_train.shape)
+    print('y_train.shape', y_train.shape)
 
     return x_train,y_train
     
@@ -99,7 +99,7 @@ def get_model():
 def train():
     model= get_model()
     
-    x_train,y_train= load_data('kaggle_data/train_images_512x512')
+    x_train,y_train= load_data('F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/train_images_512x512')
     
     datagen = ImageDataGenerator(
         horizontal_flip=True,
@@ -118,7 +118,7 @@ def create_submission():
     pred_arr= np.zeros((n_test_images,n_classes),np.int32)
     for k in range(0,n_test_images):
         image_path= 'kaggle_data/test_images_512x512/'+str(k)+'.png'
-        print image_path #
+        print(image_path) #
         
         img= cv2.imread(image_path)
         img= img[None,...]
@@ -127,7 +127,7 @@ def create_submission():
         
         pred_arr[k,:]= pred
         
-    print 'pred_arr.shape', pred_arr.shape
+    print('pred_arr.shape', pred_arr.shape)
     pred_arr = pred_arr.clip(min=0)
     df_submission = pd.DataFrame()
     df_submission['test_id']= range(0,n_test_images)
@@ -136,7 +136,7 @@ def create_submission():
     df_submission['adult_females']= pred_arr[:,2]
     df_submission['juveniles']= pred_arr[:,3]
     df_submission['pups']= pred_arr[:,4]
-    df_submission.to_csv(model_name+'_submission.csv',index=False)
+    df_submission.to_csv(model_name+'_submission_moi.csv',index=False)
    
 train()
 create_submission()
