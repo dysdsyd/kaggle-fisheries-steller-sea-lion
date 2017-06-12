@@ -22,12 +22,13 @@ import os
 import matplotlib.pyplot as plt
 
 n_classes= 5
-batch_size= 4
+batch_size= 1
 epochs= 100
-image_size= 512
-model_name= 'covnet_v1'#blending vertion
-dir_path = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/train_images_512x512'
-dir_pathTest = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/test_images_512x512'
+image_size= 1024
+model_name= 'covnet1024batch1'#blending vertion
+
+dir_path = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/train_images_1024x1024'
+dir_pathTest = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/test_images_1024x1024'
 weightsPath = "C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/layer1/weights/" + model_name + "_" + str(epochs) + '_model.h5'
 outputPathTest =  "C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/layer1/outputs/" + model_name + "_" +  str(epochs) + '_Testsubmission.csv'
 outputPathBlend =  "C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/layer1/outputs/" + model_name + "_" +  str(epochs) + '_Blendsubmission.csv'

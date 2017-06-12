@@ -6,7 +6,8 @@
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, GlobalAveragePooling2D, Input, concatenate
+from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, GlobalAveragePooling2D, Input, concatenate, Dropout
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.models import Model
 from keras import backend as K
 from keras.layers import Activation
@@ -22,12 +23,13 @@ import os
 import matplotlib.pyplot as plt
 
 n_classes= 5
-batch_size= 4
+batch_size= 1
 epochs= 100
-image_size= 512
-model_name= 'covnet_v1'#blending vertion
-dir_path = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/train_images_512x512'
-dir_pathTest = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/test_images_512x512'
+image_size= 1024
+model_name= 'covnet_v2_dropout_batchnorm1024batch1'#blending vertion
+
+dir_path = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/train_images_1024x1024'
+dir_pathTest = 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/test_images_1024x1024'
 weightsPath = "C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/layer1/weights/" + model_name + "_" + str(epochs) + '_model.h5'
 outputPathTest =  "C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/layer1/outputs/" + model_name + "_" +  str(epochs) + '_Testsubmission.csv'
 outputPathBlend =  "C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/layer1/outputs/" + model_name + "_" +  str(epochs) + '_Blendsubmission.csv'
@@ -76,6 +78,11 @@ def load_data(dir_path):
     
 #load_data('F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/train_images_512x512')
 
+def root_mean_squared_error(y_true, y_pred):
+    """
+    RMSE loss function
+    """
+    return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1))
 
 def get_model():
     input_shape = (image_size, image_size, 3)
@@ -86,18 +93,22 @@ def get_model():
                      input_shape=input_shape))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.3))
     
     model.add(Conv2D(64, kernel_size=(3, 3), padding='same'))
     model.add(Activation('relu'))
+    model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
     
     model.add(Conv2D(128, kernel_size=(3, 3), padding='same'))
     model.add(Activation('relu'))
+    model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
         
     model.add(Conv2D(n_classes, kernel_size=(3, 3), padding='same'))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.3))
 
     model.add(GlobalAveragePooling2D())
     
