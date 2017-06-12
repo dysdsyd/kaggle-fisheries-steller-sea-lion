@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 
 n_classes= 5
 batch_size= 4
-epochs= 100
+epochs= 90
 image_size= 512
 model_name= 'cnn_regression_moi'
 
@@ -109,24 +109,49 @@ def train():
                 steps_per_epoch=len(x_train) / batch_size, epochs=epochs)
 
    
+    model.save("C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/kernels/Kaggle-Sea-Lions-Solution-master/"+model_name+'_model.h5')
+ 
+
+   
+    
+    
+def re_train():
+    model = load_model("C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/kernels/Kaggle-Sea-Lions-Solution-master/"+model_name+'_model.h5')
+    
+    x_train,y_train= load_data('F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/train_images_512x512')
+    
+    datagen = ImageDataGenerator(
+        horizontal_flip=True,
+        vertical_flip=True)
+        
+    model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size),
+                steps_per_epoch=len(x_train) / batch_size, epochs=200)
+
+   
     model.save(model_name+'_model.h5')
  
+
+        
+    
+    
+
 def create_submission():
-    model = load_model(model_name+'_model.h5')
+    model = load_model("C:/Users/Charles/OneDrive/DS/Kaggle/NOAA Fisheries Steller Sea Lion Population Count/experiment-charles/kernels/Kaggle-Sea-Lions-Solution-master/"+model_name+'_model.h5')
     
     n_test_images= 18636
     pred_arr= np.zeros((n_test_images,n_classes),np.int32)
     for k in range(0,n_test_images):
-        image_path= 'kaggle_data/test_images_512x512/'+str(k)+'.png'
+        image_path= 'F:/DS-main/Kaggle-main/NOAA Fisheries Steller Sea Lion Population Count - inputs/test_images_512x512/'+str(k)+'.png'
         print(image_path) #
         
         img= cv2.imread(image_path)
         img= img[None,...]
-        pred= model.predict(img)
+        pred= model.predict(img, batch_size = 16, verbose=1)
         pred= pred.astype(int)
         
         pred_arr[k,:]= pred
-        
+
+    
     print('pred_arr.shape', pred_arr.shape)
     pred_arr = pred_arr.clip(min=0)
     df_submission = pd.DataFrame()
@@ -137,6 +162,34 @@ def create_submission():
     df_submission['juveniles']= pred_arr[:,3]
     df_submission['pups']= pred_arr[:,4]
     df_submission.to_csv(model_name+'_submission_moi.csv',index=False)
-   
+
+
 train()
+
+#re_train()
+        
 create_submission()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
