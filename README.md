@@ -15,6 +15,7 @@ Various experiments were tried in order to solve this problem, a breif overview 
  
  3. **FCN Regression**: Thanks to [@mrgloom][3] we were able to get into top 100 using the fully connected net to perform regression on the whole image, an average of our two best-performing models give us our current position the leaderboard.
  
+ 
  ## Requirements
  - Python 3.5 or above
  - Jupyter 4.3.1
@@ -23,3 +24,6 @@ Various experiments were tried in order to solve this problem, a breif overview 
  
  ## License
  This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/syeddanish41/kaggle-fisheries-steller-sea-lion/blob/master/LICENSE) file for details
+   [1]: https://www.kaggle.com/threeplusone/sea-lion-coordinates
+  [2]: https://arxiv.org/abs/1611.09326
+  [3]: https://www.kaggle.com/c/noaa-fisheries-steller-sea-lion-population-count/discussion/33900
