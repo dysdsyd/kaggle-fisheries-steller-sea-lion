@@ -21,7 +21,7 @@ Various experiments were tried in order to solve this problem, a breif overview 
  ## Requirements
  - Python 3.5 or above
  - Jupyter 4.3.1
- - Keras 2 or above
+ - Keras 1.2.2 & 2
  - Tensorflow 1.0 or above
  
  ## License
