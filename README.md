@@ -9,12 +9,9 @@ Various experiments were tried in order to solve this problem, a breif overview 
 
  1. **Segmentation**: Segmentation is applied to the image to predict small squares centered on the coordinates of the dots as shown in the image below. [Tiramisu][2] network is used with 1:1 upsampling to predict 6 classes(5 types of sea lions and background), Log loss is used with Nadam optimizer for training. Results with this approach were not satisfactory, the model was biased towards predicting the background.
 
-![Imgur](http://i.imgur.com/D4XEui4.png)
  
  2. **Masking with segmentation**: A mask is created to focus the predictor on the areas where sea lions might be present using the same segmentation approach as above by increasing the size of the squares for sea lions and using the dice coefficient loss, it was able to provide satisfactory results in detecting the regions of interest but after running a regression it seems to overfit a lot, due to lack of time more experiments were not performed with this approach. An example is shown for predicting ROI
 
-![Imgur](http://i.imgur.com/9HFCf4t.png)
-1. Actual Image   2.Mask   3. Predicted Mask
  
  3. **FCN Regression**: Thanks to [@mrgloom][3] we were able to get into top 100 using the fully connected net to perform regression on the whole image, an average of our two best-performing models give us our current position the leaderboard.
  
