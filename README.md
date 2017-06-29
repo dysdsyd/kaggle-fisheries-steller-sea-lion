@@ -17,6 +17,7 @@ Various experiments were tried in order to solve this problem, a breif overview 
  
  3. **FCN Regression**: Thanks to [@mrgloom](https://www.kaggle.com/c/noaa-fisheries-steller-sea-lion-population-count/discussion/33900
 ) we were able to get into top 100 using the fully connected net to perform regression on the whole image, an average of our two best-performing models give us our current position the leaderboard.
+(Charles)
  
  ## Requirements
  - Python 3.5 or above
