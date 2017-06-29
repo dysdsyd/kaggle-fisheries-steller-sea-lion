@@ -12,7 +12,7 @@ Various experiments were tried in order to solve this problem, a breif overview 
     -Segmentation using Tirmaisu for the NOAA contest is done in [experiment_daft/segmentation_NOAA.ipynb](https://github.com/syeddanish41/kaggle-fisheries-steller-sea-lion/blob/master/experiment-daft/segmentation_NOAA.ipynb)
 
  
- 2. **Masking with segmentation**: A mask is created to focus the predictor on the areas where sea lions might be present using the same segmentation approach as above by increasing the size of the squares for sea lions and using the dice coefficient loss, it was able to provide satisfactory results in detecting the regions of interest but after running a regression it seems to overfit a lot, due to lack of time more experiments were not performed with this approach. An example is s
+ 2. **Masking with segmentation**: A mask is created to focus the predictor on the areas where sea lions might be present using the same segmentation approach as above by increasing the size of the squares for sea lions and using the dice coefficient loss, it was able to provide satisfactory results in detecting the regions of interest but after running a regression it seems to overfit a lot, due to lack of time more experiments were not performed with this approach. Notebook for this experiment will be updated soon.
 
  
  3. **FCN Regression**: Thanks to [@mrgloom](https://www.kaggle.com/c/noaa-fisheries-steller-sea-lion-population-count/discussion/33900
