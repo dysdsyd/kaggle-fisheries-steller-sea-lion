@@ -2,6 +2,33 @@
 Our solution for Kaggle competetion NOAA Fisheries Steller Sea Lion count, big thanks to the authors of all kernels & posts, which were of great inspiration
 
 ## Methodology
+Our LB result came from a [CNN done in Keras](https://github.com/syeddanish41/kaggle-fisheries-steller-sea-lion/blob/master/experiment-charles/layer1/covnet.py).
+
+In this script we do the following steps:
+
+1. **Resizing**: we resized all the images to 512 x 512. (We tried the same with a resize of 1024 x 1024, but with lower results)
+
+2. **Creating more data**: we used the ImageDataGenerator from Keras to create more data with horizontal and vertical flips.
+
+3. **Architecture**: we follow the following architecture:
+     - Input
+     - Conv2D 32, 3, 3, same
+     - Relu
+     - MaxPooling 2D 2, 2
+     - Conv2D 64, 3, 3 same
+     - Relu
+     - MaxPooling 2D 2, 2
+     - Conv2D 128, 3, 3, same
+     - Relu
+     - MaxPooling 2D 2, 2
+     - GlobalAveragePooling2D
+
+We did not use Dense layers at the end.
+
+We tried to use Dropout, and Batch Normalization, alone or together, but it would make us overfit each time.
+
+If we had more time we would have used the same approach on patches (512 x 512) of the pictures instead of doing it on a resized picture only.
+
 
 ## Experiments
 Various experiments were tried in order to solve this problem, a breif overview is given below with the respective notebooks.
