@@ -1,5 +1,6 @@
 # kaggle-fisheries-steller-sea-lion
-Our solution for Kaggle competetion NOAA Fisheries Steller Sea Lion count, big thanks to the authors of all kernels & posts, which were of great inspiration
+Our solution for Kaggle competetion NOAA Fisheries Steller Sea Lion count, big thanks to the authors of all kernels & posts, which were of great inspiration.
+Kaggle Profile : [Daft Vader](https://www.kaggle.com/syeddanish) | [Charles Jansen](https://www.kaggle.com/cjansen)
 
 ## Methodology
 Our LB result came from a [CNN done in Keras](https://github.com/syeddanish41/kaggle-fisheries-steller-sea-lion/blob/master/experiment-charles/layer1/covnet.py).
